@@ -5,3 +5,7 @@
 /ConfArch.Data/obj
 /ConfArch.Web/obj/Debug/netcoreapp3.1
 /ConfArch.Web/obj
+/ConfArch.Web/bin/Debug/netcoreapp3.1
+/ConfArch.Data/bin/Debug/netstandard2.0
+/.vs/ConfArch.Web/v17
+/.vs/ConfArch.Web
