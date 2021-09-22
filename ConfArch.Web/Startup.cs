@@ -22,10 +22,12 @@ namespace ConfArch.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter()));
+            services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter())); // Authorization registered as Global Filter
+           // services.AddRazorPages().AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter())); // wszystkie Razor Pages z globalnym filterem Authorize
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IProposalRepository, ProposalRepository>();
             services.AddScoped<IAttendeeRepository, AttendeeRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<ConfArchDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), 
