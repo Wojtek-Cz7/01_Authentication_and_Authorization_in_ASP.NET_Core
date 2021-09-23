@@ -27,3 +27,24 @@
     </div>
 </div>
 
+@*just for demo purposes*@
+
+@if(User.Identity.IsAuthenticated)
+{
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr class="table-info">
+                <th scope="col">Claim Value</th>
+                <th scope="col">Claim Type</th>
+            </tr>
+        </thead>
+        @foreach (var claim in User.Claims)
+        {
+            <tr>
+                <td>@claim.Value</td>
+                <td>@claim.Type</td>
+            </tr>
+        }
+    </table>
+}
+
