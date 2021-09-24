@@ -11,3 +11,6 @@
 /.vs/ConfArch.Web
 /.vs/01_Authentication_and_Authorization_in_ASP.NET_Core/v17
 /.vs
+/IdentityExploration/obj
+/IdentityExploration/wwwroot/lib
+/IdentityExploration/bin/Debug/netcoreapp3.1
