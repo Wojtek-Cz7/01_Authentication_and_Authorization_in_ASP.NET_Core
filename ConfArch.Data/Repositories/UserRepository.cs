@@ -12,7 +12,7 @@ namespace ConfArch.Data.Repositories
         {
             // in memory user defined
             new User { Id = 3522, Name = "roland", Password = "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols=",  // hash of the string
-                FavoriteColor = "blue", Role = "Admin", GoogleId = "101517359495305583936" }
+                FavoriteColor = "blue", Role = "Admin", GoogleId = "108289953903753282652" }
         };
 
         public User GetByUsernameAndPassword(string username, string password)
