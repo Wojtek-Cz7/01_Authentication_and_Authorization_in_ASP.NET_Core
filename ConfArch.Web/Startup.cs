@@ -24,7 +24,7 @@ namespace ConfArch.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter())); // Authorization registered as Global Filter
-           // services.AddRazorPages().AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter())); // wszystkie Razor Pages z globalnym filterem Authorize
+            services.AddRazorPages(); //.AddMvcOptions(o => o.Filters.Add(new AuthorizeFilter())); // wszystkie Razor Pages z globalnym filterem Authorize
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IProposalRepository, ProposalRepository>();
             services.AddScoped<IAttendeeRepository, AttendeeRepository>();
@@ -74,6 +74,7 @@ namespace ConfArch.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Conference}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
