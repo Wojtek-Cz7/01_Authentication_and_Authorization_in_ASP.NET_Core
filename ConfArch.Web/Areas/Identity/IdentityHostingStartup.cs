@@ -20,7 +20,8 @@ namespace ConfArch.Web.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("ConfArchWebContextConnection")));
 
-                services.AddDefaultIdentity<ApplicationUser>(
+                // dodanie RÓL
+                services.AddIdentity<ApplicationUser, IdentityRole>(
                     options =>
                     {
                         options.SignIn.RequireConfirmedAccount = true;
@@ -30,7 +31,9 @@ namespace ConfArch.Web.Areas.Identity
                         options.Password.RequiredLength = 3;
                     }
                     )
-                    .AddEntityFrameworkStores<ConfArchWebContext>();
+                    .AddEntityFrameworkStores<ConfArchWebContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
 
                 // register the new class in the dependency injection container
                 services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
