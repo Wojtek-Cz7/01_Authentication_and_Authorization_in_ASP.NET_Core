@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace ConfArch.Web.Areas.Identity.Pages.Account
 {
@@ -61,6 +62,21 @@ namespace ConfArch.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
+
+            [Required]
+            [Display(Name = "Career started")]
+            [DataType(DataType.Date)]
+            public DateTime CareerStarted { get; set; }
+
+            [Required]
+            [Display(Name = "Birthdate")]
+            [DataType(DataType.Date)]
+            public DateTime BirthDate { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,10 +91,13 @@ namespace ConfArch.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, CareerStarted = Input.CareerStarted, FullName = Input.FullName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    // add BirthDate claim that was added in SQL Table
+                    await _userManager.AddClaimAsync(user, new Claim("BirthDate", Input.BirthDate.ToShortDateString()));
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

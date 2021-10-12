@@ -31,7 +31,7 @@ namespace ConfArch.Web.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        [BindProperty]
+        [BindProperty] // a bind property is filled by a model binder
         public InputModel Input { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }

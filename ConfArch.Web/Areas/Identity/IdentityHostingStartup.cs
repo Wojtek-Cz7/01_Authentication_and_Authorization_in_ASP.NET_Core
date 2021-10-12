@@ -31,6 +31,11 @@ namespace ConfArch.Web.Areas.Identity
                     }
                     )
                     .AddEntityFrameworkStores<ConfArchWebContext>();
+
+                // register the new class in the dependency injection container
+                services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
+                // after avove line, new claims are displayed
+
             });
         }
     }
