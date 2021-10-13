@@ -41,6 +41,7 @@ namespace ConfArch.Web.Areas.Identity
                 // after avove line, new claims are displayed
 
                 services.AddTransient<IEmailSender, EmailSender>();
+                services.AddTransient<ITestEmailSender, EmailSender>();
 
             });
         }
