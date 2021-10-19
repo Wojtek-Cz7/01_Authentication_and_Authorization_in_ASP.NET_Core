@@ -50,6 +50,9 @@ namespace ConfArch.Web.Areas.Identity
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
             var response = await client.SendEmailAsync(msg);
+
+            var debug = response.Body;
+            // zalogować odpowiedź na kosolkę
         }
     }
 }

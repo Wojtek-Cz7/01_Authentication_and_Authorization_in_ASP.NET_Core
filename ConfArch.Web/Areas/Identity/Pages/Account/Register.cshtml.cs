@@ -96,6 +96,7 @@ namespace ConfArch.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    //await _userManager.AddToRoleAsync()
                     // add BirthDate claim that was added in SQL Table
                     await _userManager.AddClaimAsync(user, new Claim("BirthDate", Input.BirthDate.ToShortDateString()));
 

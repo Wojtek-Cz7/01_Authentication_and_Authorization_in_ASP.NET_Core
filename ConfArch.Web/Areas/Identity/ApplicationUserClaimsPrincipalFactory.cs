@@ -13,9 +13,11 @@ namespace ConfArch.Web.Areas.Identity
 
         }
 
+
+        // ten override pozwala na dodanie nowych Claimów do Usera (identity)
         protected override async Task<ClaimsIdentity> GenerateClaimsAsync(ApplicationUser user)
         {
-            var identity = await base.GenerateClaimsAsync(user);
+            var identity = await base.GenerateClaimsAsync(user);        // base to są standard identity claims !! 
 
             // tu dodajemy nowe claimy
             identity.AddClaim(new Claim("CareerStarted", user.CareerStarted.ToShortDateString()));
