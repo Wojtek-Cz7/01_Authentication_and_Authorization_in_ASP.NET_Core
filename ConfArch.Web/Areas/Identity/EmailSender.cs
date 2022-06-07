@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
@@ -11,12 +12,15 @@ namespace ConfArch.Web.Areas.Identity
         private readonly string _apiKey;
         private readonly string _fromName;
         private readonly string _fromEmail;
+        private readonly ILogger<EmailSender> _logger;
 
-        public EmailSender(IConfiguration config)
+
+        public EmailSender(IConfiguration config, ILogger<EmailSender> logger)
         {
             _apiKey = config["SendGrid:ApiKey"];
             _fromEmail = config["SendGrid:FromEmail"];
             _fromName = config["SendGrid:FromName"];
+            _logger = logger;
 
         }
         public async Task SendEmailAsync(string email, string subject, string message)
@@ -42,17 +46,21 @@ namespace ConfArch.Web.Areas.Identity
         {
             var apiKey = _apiKey;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("test@example.com", "Example User");
+            var from = new EmailAddress("wojciech.cz7@gmail.com", "Wojtek");
             var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress("test@example.com", "Example User");
+            var to = new EmailAddress("wojciech.cz7@gmail.com", "Wojtek");
             var plainTextContent = "and easy to do anywhere, even with C#";
             var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
-            var response = await client.SendEmailAsync(msg);
+            var response = await client.SendEmailAsync(msg); 
 
-            var debug = response.Body;
-            // zalogować odpowiedź na kosolkę
+            _logger.LogInformation(response.StatusCode.ToString());
+            _logger.LogInformation(response.Body.ReadAsStringAsync().Result); // The message will be here
+            _logger.LogInformation(response.Headers.ToString());
+            _logger.LogInformation($"fromEmail: {from.Email}, fromName: {from.Name}");
+            _logger.LogInformation($"response.StatusCode: { response.StatusCode.ToString()} ");
+
         }
     }
 }
